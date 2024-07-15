@@ -1,38 +1,98 @@
+html,
+body {
+  display: inline-block;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth; 
+}
 .App {
+  text-align: center;
+  padding: 20px;
+}
+
+p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App img {
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.grid-container {
+  display: grid;
+  grid-gap: 0 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.grid-item {
+	border: 1px solid rgba(0, 0, 0, .125);
+	border-radius: .25rem;
+  margin: 1em 0;
+}
+
+.form-select-wrapper {
+  position: relative;
+	padding: 20px 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.form-select {
+  width: 25%;
+  margin: 0 10px;
+}
+
+.card-item {
+	background-color: #fff;
+	background-clip: border-box;
+  padding: 25px;
+  text-align: left;
+}
+
+.stats-title {
+  margin: 20px 0 5px 0;
+}
+
+.player-name {
+	margin: 0 0 5px 0;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+
+
+label {
+  position: relative;
+  display: inline-block;
+}
+
+select {
+  padding: 10px;
+  border-radius: .25rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  margin: 0 5px 5px 0;
+}
+
+
+@media only screen and (max-width: 760px) {
+
+  .App img {
+    width: auto;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
   }
 }
