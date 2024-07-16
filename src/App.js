@@ -13,7 +13,9 @@ import PlayerList from './components/PlayerList';
 
 const App = () => (
   <div className="App">
-    <h1>MLB Player Data</h1>
+    <div className='mlb-header'>
+      <h1>MLB Player Data</h1>
+    </div>
     <div className='container'>
       <PlayerList class="grid-container"/>
     </div> 

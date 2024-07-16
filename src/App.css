@@ -10,7 +10,6 @@ body {
 }
 .App {
   text-align: center;
-  padding: 20px;
 }
 
 p {
@@ -30,10 +29,10 @@ p {
 }
 
 .nav-bar {
-  width: 100%;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.95);
   position: sticky;
   top: 0;
+  padding: 5px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,10 +80,43 @@ p {
 	text-transform: uppercase;
 }
 
+.mlb-header {
+	margin: auto;
+	-webkit-box-align: center;
+	align-items: center;
+	flex-wrap: wrap;
+	position: relative;
+  text-align: center;
+	padding: 5px 10px;
+  background-color: #041e42;
+}
+
+.mlb-header h1 {
+  color: #fff;
+  text-align: center;
+}
 
 label {
   position: relative;
   display: inline-block;
+  font-size: 14px;
+  padding: 0 10px;
+}
+
+input {
+  padding: 4px 0;
+}
+
+button {
+  border: none;
+	color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+	display: block;
+	padding: 13px 19px;
+	position: relative;
+  background-color: #cc0033;
 }
 
 select {
@@ -94,7 +126,6 @@ select {
   border-radius: 3px;
   margin: 0 5px 5px 0;
 }
-/* src/components/PlayerComparisonModal.css */
 
 .ReactModal__Overlay {
   background-color: rgba(0, 0, 0, 0.75) !important;
@@ -150,11 +181,17 @@ select {
 
 @media only screen and (max-width: 760px) {
 
+  .nav-bar {
+   display: inline-block;
+   text-align: center;
+   padding: 10px 5px;
+  }
+
   .App img {
     width: auto;
   }
 
-  .grid-container {
+  .player-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
