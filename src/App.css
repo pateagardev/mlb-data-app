@@ -29,13 +29,23 @@ p {
   width: 100%;
 }
 
-.grid-container {
+.nav-bar {
+  width: 100%;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.player-grid {
   display: grid;
   grid-gap: 0 20px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.grid-item {
+.player-item {
 	border: 1px solid rgba(0, 0, 0, .125);
 	border-radius: .25rem;
   margin: 1em 0;
@@ -83,6 +93,58 @@ select {
   border: 1px solid #e0e0e0;
   border-radius: 3px;
   margin: 0 5px 5px 0;
+}
+/* src/components/PlayerComparisonModal.css */
+
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.ReactModal__Content {
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin-right: -50% !important;
+  transform: translate(-50%, -50%) !important;
+  padding: 10px !important;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 800px;
+}
+
+.player-comparison-modal {
+  padding: 20px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.player-comparison {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.player-comparison div {
+  padding: 0;
+  width: 100%;
+}
+
+.player-comparison img {
+  max-width: 93%;
+  width: 100%;
 }
 
 
