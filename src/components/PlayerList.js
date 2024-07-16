@@ -15,6 +15,7 @@ const PlayerList = () => {
   // player1 and player2: Store the selected players for comparison.
   const [isModalOpen, setIsModalOpen] = useState(false);
   // Controls the visibility of the comparison modal.
+  const [filter, setFilter] = useState('all'); 
 
   // useEffect Hooks: Fetches the player data and their statistics when the component mounts.
   useEffect(() => {
@@ -65,6 +66,8 @@ const PlayerList = () => {
   const openModal = () => {
     if (player1 && player2) {
       setIsModalOpen(true);
+    } else {
+      alert("Pick players to compare")
     }
   };
 
@@ -74,10 +77,23 @@ const PlayerList = () => {
     clearComparison();
   };
 
-  // Filters the list of players based on the search term
-  const filteredPlayers = players.filter(player =>
-    player.fullName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Checks if the player is a pitcher
+  const isPitcher = (player) => {
+    return player.primaryPosition === 'Pitcher';
+  }; 
+
+  // Filter players based on search term and filter selection
+  const filteredPlayers = players.filter(player => {
+    const matchesSearchTerm = player.fullName.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = filter === 'all' || (filter === 'pitchers' && isPitcher(player)) || (filter === 'hitters' && !isPitcher(player));
+    return matchesSearchTerm && matchesFilter;
+  });
+
+  // Handle filter change
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
+ 
 
   // Renders a search input, dropdowns for selecting players, buttons for clearing the selection and opening the modal, and the list of filtered players.
   return (
@@ -91,6 +107,14 @@ const PlayerList = () => {
             value={searchTerm}
             onChange={handleSearchChange}
           />
+        </div>
+        <div className="filter-bar">
+          <label htmlFor="filter-select">Filter: </label>
+          <select id="filter-select" value={filter} onChange={handleFilterChange}>
+            <option value="all">All</option>
+            <option value="pitchers">Pitchers</option>
+            <option value="hitters">Hitters</option>
+          </select>
         </div>
         <div className="select-player">
           <label htmlFor="player1-select">Select Player 1: </label>
@@ -122,17 +146,31 @@ const PlayerList = () => {
         {filteredPlayers.map((player, index) => (
           <div key={index} className="player-item">
             <img src={player.imageUrl} alt={player.fullName} />
-            <h3>{player.fullName}</h3>
-            <p>Position: {player.primaryPosition}</p>
-            <p>Team: {player.currentTeam || 'N/A'}</p>
-            {player.stats && (
-              <div>
-                <p>Home Runs: {player.stats.homeRuns}</p>
-                <p>Hits: {player.stats.hits}</p>
-                <p>Batting Average: {player.stats.avg}</p>
-                <p>RBIs: {player.stats.rbi}</p>
-              </div>
-            )}
+            <div className='card-item'>
+              <h3 className='player-name'>{player.fullName}</h3>
+              <p>Position: {player.primaryPosition}</p>
+              <p>Team: {player.currentTeam || 'N/A'}</p>
+              {player.stats && (
+                <div>
+                  <h4 className='stats-title'>Statistics</h4>
+                  {isPitcher(player) ? (
+                    <div>
+                      <p>Wins: {player.stats.wins}</p>
+                      <p>Losses: {player.stats.losses}</p>
+                      <p>ERA: {player.stats.era}</p>
+                      <p>Strikeouts: {player.stats.strikeouts}</p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p>Home Runs: {player.stats.homeRuns}</p>
+                      <p>Hits: {player.stats.hits}</p>
+                      <p>Batting Average: {player.stats.avg}</p>
+                      <p>RBIs: {player.stats.rbi}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>
