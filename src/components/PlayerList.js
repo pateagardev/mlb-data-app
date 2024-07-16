@@ -5,12 +5,18 @@ import { fetchPlayers, fetchPlayerStats } from '../services/mlbService';
 import PlayerComparisonModal from './PlayerComparisonModal';
 
 const PlayerList = () => {
+  // Updates the players state with the fetched data.
   const [players, setPlayers] = useState([]);
+  // Stores the list of players fetched from the MLB API.
   const [searchTerm, setSearchTerm] = useState('');
+  // Stores the current search term entered by the user.
   const [player1, setPlayer1] = useState(null);
   const [player2, setPlayer2] = useState(null);
+  // player1 and player2: Store the selected players for comparison.
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // Controls the visibility of the comparison modal.
 
+  // useEffect Hooks: Fetches the player data and their statistics when the component mounts.
   useEffect(() => {
     const getPlayers = async () => {
       try {
@@ -31,20 +37,23 @@ const PlayerList = () => {
     getPlayers();
   }, []);
 
+  // Update the state with the selected players.
   const handlePlayer1Change = (event) => {
     const selectedPlayer = players.find(player => player.id === parseInt(event.target.value));
     setPlayer1(selectedPlayer);
   };
-
+  
   const handlePlayer2Change = (event) => {
     const selectedPlayer = players.find(player => player.id === parseInt(event.target.value));
     setPlayer2(selectedPlayer);
   };
 
+  // Updates the search term state.
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
+  // Clears the selected players and resets the dropdown menus.
   const clearComparison = () => {
     setPlayer1(null);
     setPlayer2(null);
@@ -52,21 +61,25 @@ const PlayerList = () => {
     document.getElementById('player2-select').value = '';
   };
 
+  // Opens the comparison modal if both players are selected.
   const openModal = () => {
     if (player1 && player2) {
       setIsModalOpen(true);
     }
   };
 
+  // Closes the modal and clears the selected players.
   const closeModal = () => {
     setIsModalOpen(false);
     clearComparison();
   };
 
+  // Filters the list of players based on the search term
   const filteredPlayers = players.filter(player =>
     player.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Renders a search input, dropdowns for selecting players, buttons for clearing the selection and opening the modal, and the list of filtered players.
   return (
     <div className="player-list-container">
       <div className='nav-bar'>

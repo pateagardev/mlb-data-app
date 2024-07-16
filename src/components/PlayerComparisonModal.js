@@ -5,9 +5,11 @@ import Modal from 'react-modal';
 import { fetchPlayerStats } from '../services/mlbService';
 
 const PlayerComparisonModal = ({ isOpen, onRequestClose, player1, player2 }) => {
+  // Store the statistics of the two selected players.
   const [stats1, setStats1] = useState(null);
   const [stats2, setStats2] = useState(null);
-  
+
+  // Fetches the statistics for the selected players when they are available and the modal is open.
   useEffect(() => {
     if (player1 && player2) {
       const getPlayerStats = async () => {
@@ -27,6 +29,7 @@ const PlayerComparisonModal = ({ isOpen, onRequestClose, player1, player2 }) => 
     }
   }, [player1, player2]);
   
+  // Handles the closing of the modal and clears the selected players from the dropdown menus.
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Player Comparison Modal">
       <div className="player-comparison-modal">
@@ -79,5 +82,5 @@ const PlayerComparisonModal = ({ isOpen, onRequestClose, player1, player2 }) => 
     </Modal>
   );
 };
-
+// Renders the modal with player details and statistics for comparison.
 export default PlayerComparisonModal;
