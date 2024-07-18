@@ -55,3 +55,18 @@ export const fetchPlayerStats = async (playerId) => {
     };
   }
 };
+
+export const fetchTeams = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/teams`);
+    return response.data.teams
+      .filter(team => team.sport.name === 'Major League Baseball') // Filter only MLB teams
+      .map(team => ({
+        id: team.id,
+        name: team.name,
+      }));
+  } catch (error) {
+    console.error('Error fetching teams:', error);
+    throw error;
+  }
+};

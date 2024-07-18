@@ -1,7 +1,7 @@
 // src/components/PlayerList.js
 
 import React, { useState, useEffect } from 'react';
-import { fetchPlayers, fetchPlayerStats } from '../services/mlbService';
+import { fetchPlayers, fetchPlayerStats, fetchTeams } from '../services/mlbService';
 import PlayerComparisonModal from './PlayerComparisonModal';
 
 const PlayerList = () => {
@@ -11,12 +11,15 @@ const PlayerList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   // Stores the current search term entered by the user.
   const [player1, setPlayer1] = useState(null);
+    // player1 and player2: Store the selected players for comparison.
   const [player2, setPlayer2] = useState(null);
-  // player1 and player2: Store the selected players for comparison.
-  const [isModalOpen, setIsModalOpen] = useState(false);
   // Controls the visibility of the comparison modal.
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Filters the Data
   const [filter, setFilter] = useState('all'); 
   const [selectedPosition, setSelectedPosition] = useState('All');
+  const [selectedTeam, setSelectedTeam] = useState('All');
+  const [teams, setTeams] = useState([]);
 
   // useEffect Hooks: Fetches the player data and their statistics when the component mounts.
   useEffect(() => {
@@ -36,7 +39,17 @@ const PlayerList = () => {
       }
     };
 
+    const getTeams = async () => {
+      try {
+        const teamsData = await fetchTeams();
+        setTeams(teamsData);
+      } catch (error) {
+        console.error('Error fetching teams:', error);
+      }
+    };
+
     getPlayers();
+    getTeams();
   }, []);
 
   // Update the state with the selected players.
@@ -77,9 +90,22 @@ const PlayerList = () => {
     setIsModalOpen(false);
     clearComparison();
   };
+
+  const clearAllFilters = () => {
+    setSearchTerm('');
+    setFilter('all');
+    setSelectedPosition('All');
+    setSelectedTeam('All');
+    clearComparison();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   
   const handlePositionChange = (event) => {
     setSelectedPosition(event.target.value);
+  };
+  
+  const handleTeamChange = (event) => {
+    setSelectedTeam(event.target.value);
   };
 
   // Checks if the player is a pitcher
@@ -91,8 +117,9 @@ const PlayerList = () => {
   const filteredPlayers = players.filter(player => {
     const matchesSearchTerm = player.fullName.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = filter === 'all' || (filter === 'pitchers' && isPitcher(player)) || (filter === 'hitters' && !isPitcher(player));
+    const matchesTeam = selectedTeam === 'All' || player.currentTeam === selectedTeam;
     const matchesPosition = selectedPosition === 'All' || player.primaryPosition === selectedPosition;
-    return matchesSearchTerm && matchesFilter && matchesPosition;
+    return matchesSearchTerm && matchesFilter && matchesPosition && matchesTeam;
   });
 
   // Handle filter change
@@ -115,6 +142,15 @@ const PlayerList = () => {
               onChange={handleSearchChange}
             />
           </div>
+          <div className="filter-team">
+            <label htmlFor="team-select">Filter by Team: </label>
+            <select id="team-select" value={selectedTeam} onChange={handleTeamChange}>
+              <option value="All">All Teams</option>
+              {teams.map(team => (
+                <option key={team.id} value={team.name }>{team.name}</option>
+              ))}
+            </select>
+          </div>
           <div className='filter-position'>
             <label htmlFor="position-select">Filter by Position: </label>
             <select id="position-select" value={selectedPosition} onChange={handlePositionChange}>
@@ -130,16 +166,21 @@ const PlayerList = () => {
             </select>
           </div>
           <div className="filter-bar">
-          <label htmlFor="position-select">Filter by Hitters or Pitcher: </label>
+            <label htmlFor="position-select">Filter by Hitters or Pitcher: </label>
             <select id="filter-select" value={filter} onChange={handleFilterChange}>
               <option value="all">All</option>
               <option value="pitchers">Pitchers</option>
               <option value="hitters">Hitters</option>
             </select>
           </div>
+          <div className='clear-all'>
+            <button onClick={clearAllFilters}>Clear All</button> {/* Clear All button */}
+          </div>
+        </div>
+        <div className='compater-wrap'>
+          <h4 className='player-compare'>Compare a Player</h4>
         </div>
         <div className='tools-bottom'>
-          <h4>Compare a Player</h4>
           <div className="select-player">
             <label htmlFor="player1-select">Select Player 1: </label>
             <select id="player1-select" onChange={handlePlayer1Change}>
