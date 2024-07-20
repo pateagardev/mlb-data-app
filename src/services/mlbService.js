@@ -1,5 +1,4 @@
 // src/services/mlbService.js
-
 import axios from 'axios';
 
 const BASE_URL = 'https://statsapi.mlb.com/api/v1';

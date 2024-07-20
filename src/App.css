@@ -6,7 +6,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  scroll-behavior: smooth; 
+  scroll-behavior: smooth;
+  background-color: #f5f5f5; 
 }
 .App {
   text-align: center;
@@ -26,89 +27,6 @@ p {
 
 .App img {
   width: 100%;
-}
-
-/* // Nav Styles */
-
-.nav-bar {
-  background-color: rgba(255, 255, 255, 0.95);
-  position: sticky;
-  top: 0;
-  padding: 5px 0;
-  align-items: center;
-}
-
-.tools-top {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-}
-
-.tools-bottom {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center
-}
-
-
-.player-grid {
-  display: grid;
-  grid-gap: 0 20px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
-.player-item {
-	border: 1px solid rgba(0, 0, 0, .125);
-	border-radius: .25rem;
-  margin: 1em 0;
-}
-
-.form-select-wrapper {
-  position: relative;
-	padding: 20px 15px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.form-select {
-  width: 25%;
-  margin: 0 10px;
-}
-
-.card-item {
-	background-color: #fff;
-	background-clip: border-box;
-  padding: 25px;
-  text-align: left;
-}
-
-.stats-title {
-  margin: 20px 0 5px 0;
-}
-
-.player-name {
-	margin: 0 0 5px 0;
-	font-size: 20px;
-	text-transform: uppercase;
-}
-
-.mlb-header {
-	margin: auto;
-	-webkit-box-align: center;
-	align-items: center;
-	flex-wrap: wrap;
-	position: relative;
-  text-align: center;
-	padding: 5px 10px;
-  background-color: #041e42;
-}
-
-.mlb-header h1 {
-  color: #fff;
-  text-align: center;
 }
 
 label {
@@ -141,6 +59,103 @@ select {
   border-radius: 3px;
   margin: 0 5px 5px 0;
 }
+
+/* // Header Styles */ 
+
+.mlb-header {
+	margin: auto;
+	-webkit-box-align: center;
+	align-items: center;
+	flex-wrap: wrap;
+	position: relative;
+  text-align: center;
+	padding: 5px 10px;
+  background-color: #041e42;
+  box-shadow: rgb(0, 0, 0) 1px 0px 5px;
+  z-index: 6;
+}
+
+.mlb-header h1 {
+  color: #fff;
+  text-align: center;
+}
+
+/* // Nav Styles */
+
+.nav-bar {
+  background-color: rgba(255, 255, 255, 0.95);
+  position: sticky;
+  top: 0;
+  padding: 0;
+  align-items: center;
+  z-index: 5;
+}
+
+.tools-top {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.tools-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+/* // Grid Styles */
+
+.player-grid {
+  display: grid;
+  grid-gap: 0 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.player-item {
+	border-radius: .25rem;
+  margin: 1em 0;
+}
+
+.card-item {
+	background-color: #fff;
+	background-clip: border-box;
+  padding: 25px;
+  text-align: left;
+}
+
+.stats-title {
+  margin: 20px 0 5px 0;
+}
+
+.player-name {
+	margin: 0 0 5px 0;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+
+/* // From Styles */ 
+
+.form-select-wrapper {
+  position: relative;
+	padding: 20px 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.form-select {
+  width: 25%;
+  margin: 0 10px;
+}
+
+/* // Modal Styles */ 
 
 .ReactModal__Overlay {
   background-color: rgba(0, 0, 0, 0.75) !important;
@@ -177,6 +192,8 @@ select {
   font-size: 16px;
 }
 
+/* // Player Compare Styles */  
+
 .player-compare {
   margin: 30px 0 15px 0;
 	font-size: 20px;
@@ -199,14 +216,33 @@ select {
   width: 100%;
 }
 
+@media only screen and (max-width: 1024px) {
+  .player-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
 
 @media only screen and (max-width: 760px) {
 
   .nav-bar {
-   display: inline-block;
-   text-align: center;
-   padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
   }
+
+
+.tools-top {
+  flex-direction: column;
+  text-align: center;
+  padding: 15px 5px;
+}
+
+.tools-bottom {
+  flex-direction: column;
+  text-align: center;
+  padding: 10px 5px;
+}
+
 
   .App img {
     width: auto;

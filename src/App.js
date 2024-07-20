@@ -16,9 +16,7 @@ const App = () => (
     <div className='mlb-header'>
       <h1>MLB Player Data</h1>
     </div>
-    <div className='container'>
-      <PlayerList class="grid-container"/>
-    </div> 
+    <PlayerList class="grid-container"/>
   </div>
 );
 

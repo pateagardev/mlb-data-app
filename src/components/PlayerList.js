@@ -90,7 +90,7 @@ const PlayerList = () => {
     setIsModalOpen(false);
     clearComparison();
   };
-
+  // Resets all filters and scrolls to the top of the page.
   const clearAllFilters = () => {
     setSearchTerm('');
     setFilter('all');
@@ -127,7 +127,6 @@ const PlayerList = () => {
     setFilter(event.target.value);
   };
  
-
   // Renders a search input, dropdowns for selecting players, buttons for clearing the selection and opening the modal, and the list of filtered players.
   return (
     <div className="player-list-container">
@@ -166,7 +165,7 @@ const PlayerList = () => {
             </select>
           </div>
           <div className="filter-bar">
-            <label htmlFor="position-select">Filter by Hitters or Pitcher: </label>
+            <label htmlFor="position-select">Filter by Player: </label>
             <select id="filter-select" value={filter} onChange={handleFilterChange}>
               <option value="all">All</option>
               <option value="pitchers">Pitchers</option>
@@ -177,30 +176,30 @@ const PlayerList = () => {
             <button onClick={clearAllFilters}>Clear All</button> {/* Clear All button */}
           </div>
         </div>
-        <div className='compater-wrap'>
-          <h4 className='player-compare'>Compare a Player</h4>
+      </div>
+      <div className='compater-wrap'>
+        <h4 className='player-compare'>Compare a Player</h4>
+      </div>
+      <div className='tools-bottom'>
+        <div className="select-player">
+          <label htmlFor="player1-select">Select Player 1: </label>
+          <select id="player1-select" onChange={handlePlayer1Change}>
+            <option value="">Select a player</option>
+            {filteredPlayers.map(player => (
+              <option key={player.id} value={player.id}>{player.fullName}</option>
+            ))}
+          </select>
         </div>
-        <div className='tools-bottom'>
-          <div className="select-player">
-            <label htmlFor="player1-select">Select Player 1: </label>
-            <select id="player1-select" onChange={handlePlayer1Change}>
-              <option value="">Select a player</option>
-              {filteredPlayers.map(player => (
-                <option key={player.id} value={player.id}>{player.fullName}</option>
-              ))}
-            </select>
-          </div>
-          <div className="select-player">
-            <label htmlFor="player2-select">Select Player 2: </label>
-            <select id="player2-select" onChange={handlePlayer2Change}>
-              <option value="">Select a player</option>
-              {filteredPlayers.map(player => (
-                <option key={player.id} value={player.id}>{player.fullName}</option>
-              ))}
-            </select>
-          </div>
-          <button onClick={openModal}>Compare Players</button>
+        <div className="select-player">
+          <label htmlFor="player2-select">Select Player 2: </label>
+          <select id="player2-select" onChange={handlePlayer2Change}>
+            <option value="">Select a player</option>
+            {filteredPlayers.map(player => (
+              <option key={player.id} value={player.id}>{player.fullName}</option>
+            ))}
+          </select>
         </div>
+        <button onClick={openModal}>Compare Players</button>
       </div>
       <PlayerComparisonModal
         isOpen={isModalOpen}
